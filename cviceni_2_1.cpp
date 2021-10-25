@@ -1,6 +1,7 @@
 // my first program in C++
 #include <iostream>
 #include <fstream>
+#include "cv_nacitani.h"
 using namespace std;
 
 int main()
@@ -17,7 +18,7 @@ int main()
     while (vek > 150);
 
     cout << "Zadejte vysku mezi 0 a 250." << endl;
-    float vyska;
+    int vyska;
         do  {
         cin >> vyska;
         }
