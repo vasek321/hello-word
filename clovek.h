@@ -1,21 +1,28 @@
-#ifndef CLOVEK_H_INCLUDED
-#define CLOVEK_H_INCLUDED
+#ifndef CLOVEK_H
+#define CLOVEK_H
 #include <iostream>
+#include <string>
 #include <fstream>
 
-int vek(int nejmensi_vek, int nejvetsi_vek);
-int vyska (int nejmensi_vysku, int nejvetsi_vysku);
-int vzdelani (int ZS, int SS, int VS);
-bool addmore();
-void uloz_do_souboru(std::string jmeno,std::string prijmeni,int vek,int vyska,int vzdelani,std::ofstream& vystup);
+class Clovek
+{
+    public:
+        std::string jmeno;
+        std::string prijmeni;
+        int vek;
+        int vyska;
+        int vzdelani;
 
+        Clovek();
 
-void nacti (std::string& jmeno,
-            std::string& prijmeni,
-            int& vek,
-            int& vyska,
-            int& vzdelani);
+        void nacti_data();
+        void zapis_do_souboru(std::fstream& soubor);
 
+        void nacti_jmeno_a_prijmeni();
+        void nacti_vek();
+        void nacti_vyska();
+        void nacti_vzdelani();
 
+};
 
-#endif // CLOVEK_H_INCLUDED
+#endif // CLOVEK_H

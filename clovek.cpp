@@ -1,66 +1,86 @@
-#include <iostream>
-#include <fstream>
 #include "clovek.h"
+
 using namespace std;
 
-int vek (int nejmensi_vek, int nejvetsi_vek){
+Clovek::Clovek()
+{}
 
-    int vek = 0;
-    do{
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            std::cout << "Zadejte vek mezi 0 a 150." << std::endl;
-            std:cin >> vek;
-
-            }
-            while(std::cin.fail()|| vek < nejmensi_vek || vek > nejvetsi_vek);
-            return vek;
-}
-int vyska (int nejmensi_vyska, int nejvetsi_vyska){
-
-    int vyska = 0;
-    do{
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            std::cout << "Zadejte vysku mezi 0 a 250." << std::endl;
-            std:cin >> vyska;
-
-            }
-            while(std::cin.fail()|| vyska < nejmensi_vyska || vyska > nejvetsi_vyska);
-            return vyska;
-}
-int vzdelani (int ZS, int SS, int VS){
-
-    int vzdelani = 0;
-    do{
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            std::cout << "Zadejte dosazene vzdelani (ZS, SS, VS)." << std::endl;
-            std:cin >> vzdelani;
-
-            }
-            while(std::cin.fail());
-            return vzdelani;
+void Clovek::nacti_data()
+{
+    nacti_jmeno_a_prijmeni();
+    nacti_vek();
+    nacti_vyska();
+    nacti_vzdelani();
 }
 
-void uloz_do_souboru(std::string jmeno,std::string prijmeni,int vek,int vyska,int vzdelani,std::ofstream& vystup){
-    vystup << jmeno << " , " << prijmeni << " , " << vek << " , " << vyska << " , " << vzdelani << std::endl;
-
-        }
-bool addmore (){
-        std::string more = "";
-        std::cout << "Chcete pridat dalsi? (ano, ne) ";
-        std::cin >> more;
-            if (more=="ano"){
-                    return true;
-            }
-            else if (more=="ne"){
-                    return false;
-            }
-            else {
-                    std::cout << "spatny format" << std::endl;
-            }
+void Clovek::nacti_jmeno_a_prijmeni()
+{
+    cout<<"Zadejte jmeno a prijmeni\n";
+    cin>>jmeno>>prijmeni;
 }
 
+void Clovek::nacti_vek()
+{
+    int vek_min, vek_max;
+    vek_min=0;
+    vek_max=150;
 
+    do {
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout<<"Zadejte vek\n";
+            cin>>vek;
+       }
+    while (cin.fail() || vek < vek_min || vek > vek_max);
+}
 
+void Clovek::nacti_vyska()
+{
+    int vyska_min, vyska_max;
+    vyska_min=0;
+    vyska_max=250;
+
+    do {
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout<<"Zadejte vysku\n";
+            cin>>vyska;
+       }
+    while (cin.fail() || vyska < vyska_min || vyska > vyska_max);
+}
+
+void Clovek::nacti_vzdelani()
+{
+
+    do {
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout<<"Zadejte nejvyssi dosazene vzdelani: 0 zakladni skola, 1 stredni skola, 2 vysoka skola\n";
+            cin>>vzdelani;
+       }
+    while (cin.fail() || vzdelani<0 || vzdelani>2);
+}
+
+void Clovek::zapis_do_souboru(fstream& soubor)
+{
+     soubor<<"Udaje uchazece \n";
+     soubor<<"Jmeno a prijmeni:"<<jmeno<<" "<<prijmeni<<" \n";
+     soubor<<"Vek:"<<vek<<"\n";
+     soubor<<"Vyska(cm):"<<vyska<<"\n";
+     soubor<<"Dosazene vzdelani:";
+
+    if (vzdelani==0)
+    {
+        soubor<<"zakladni";
+    }
+    else if (vzdelani==1)
+    {
+       soubor<<"stredoskolske";
+    }
+    else
+    {
+        soubor<<"vysokoskolske";
+    }
+
+    soubor<<"\n";
+}

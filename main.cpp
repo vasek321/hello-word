@@ -1,60 +1,35 @@
-// my first program in C++
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include "clovek.h"
+
 using namespace std;
 
 int main()
 {
-    cout << "Zadejte jmeno a prijmeni." << endl;
-    string jmeno, prijmeni;
-    cin >> jmeno >> prijmeni;
+    string potvrzeni;
+    vector <Clovek> seznam;
+    int i;
 
-    cout << "Zadejte vek mezi 0 a 150." << endl;
-    int vek;
-    do  {
-        cin >> vek;
-        }
-    while (vek > 150);
+    do {
+        Clovek clovek;
+        clovek.nacti_data();
+        seznam.push_back(clovek);
 
-    cout << "Zadejte vysku mezi 0 a 250." << endl;
-    int vyska;
-        do  {
-        cin >> vyska;
-        }
-    while (vyska > 250.0);
-
-    cout << "Zadejte dosazene vzdelani (ZS, SS, VS)." << endl;
-    string vzdelani;
-    cin >> vzdelani;
-    if (vzdelani == "ZS" || vzdelani == "SS" || vzdelani == "VS") {
-        cout << jmeno << " " << prijmeni << " je " << vek << " let stary, ma " << vyska << " cm a ma " << vzdelani << " vzdelani" << endl;
+        cout <<"Chcete pridat dalsi osobu? ano/ne\n";
+        cin >> potvrzeni;
     }
-    else{
-        cout << jmeno << " " << prijmeni << " je " << vek << " let stary a ma " << vyska << " cm" << endl;
-        cout << "Nezname dosazene vzdelani." << endl;
-    }
+    while(potvrzeni =="ano");
 
-    fstream file;
-    file.open("vystup.txt",ios::out);
-    if(!file)
+    fstream soubor("datauzivatele.txt", ios::out);
+
+    for (i=0; i<seznam.size(); i++)
     {
-      return 0;
+        Clovek clovek = seznam[i];
+        clovek.zapis_do_souboru(soubor);
+        soubor<<"\n";
     }
-    cout << "\nFile created successfully."<< endl;
-    file<<jmeno<<" "<<prijmeni<<" "<<vek<<" "<<vyska<<" "<<vzdelani<< endl;
-    file.close();
-
-    file.open("vystup.txt",ios::in);
-    if(!file){
-        return 0;
-    }
-    file>>jmeno;
-    file>>prijmeni;
-
-    cout << "jmeno: "<<jmeno<<", prijmeni: "<<prijmeni<<"\nvek: "<<vek<<"\nvyska: "<<vyska<<"\nvzdelani: "<<vzdelani<< endl;
-
-
 
     return 0;
 }
+
